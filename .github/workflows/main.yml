@@ -13,8 +13,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 90
-    env:
-      ANDROID_SDK_ROOT: ${{ runner.temp }}/android-sdk
+    env: 
+      ANDROID_SDK_ROOT: $RUNNER_TEMP/android-sdk
     steps:
       - name: Checkout
         uses: actions/checkout@v4
