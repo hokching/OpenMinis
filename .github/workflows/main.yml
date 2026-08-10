@@ -37,7 +37,7 @@ jobs:
       - name: Install Android cmdline tools + SDK/NDK
         run: |
           mkdir -p "$ANDROID_SDK_ROOT"
-          curl -fsSL "https://dl.google.com/android/repository/commandlinetools-linux-110-9123335_latest.zip" -o cmdline.zip
+          curl -fsSL "https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip" -o cmdline.zip
           unzip -q cmdline.zip -d cmdline-temp
           mkdir -p "$ANDROID_SDK_ROOT/cmdline-tools/latest"
           mv cmdline-temp/cmdline-tools/* "$ANDROID_SDK_ROOT/cmdline-tools/latest/"
