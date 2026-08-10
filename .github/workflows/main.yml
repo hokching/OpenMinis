@@ -35,18 +35,11 @@ jobs:
         run: corepack enable && corepack prepare pnpm@latest --activate
 
       - name: Install Android cmdline tools + SDK/NDK
-        run: |
-          mkdir -p "$ANDROID_SDK_ROOT/cmdline-tools"
-          curl -fsSL "https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip" -o cmdline.zip
-          unzip -q cmdline.zip
-          # Google's zip unpacks to a top-level 'cmdline-tools' folder. Move it directly to 'latest'
-          mv cmdline-tools "$ANDROID_SDK_ROOT/cmdline-tools/latest"
-          rm -f cmdline.zip
-          
-          export PATH="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH"
-          yes | sdkmanager --sdk_root="$ANDROID_SDK_ROOT" --licenses || true
-          sdkmanager --sdk_root="$ANDROID_SDK_ROOT" "platform-tools" "platforms;android-36" "build-tools;33.0.2" "cmake;3.22.1" "ndk;28.0.3"
-        shell: bash
+        uses: android-actions/setup-android@v3
+        with:
+          cmdline-tools-version: 11076708
+          packages: platform-tools platforms;android-36 build-tools;33.0.2 cmake;3.22.1 ndk;28.0.3
+          sdk-root: ${{ env.ANDROID_SDK_ROOT }}
       - name: Set ANDROID_NDK_HOME
         run: echo "ANDROID_NDK_HOME=$ANDROID_SDK_ROOT/ndk/28.0.3" >> $GITHUB_ENV
 
